@@ -1,0 +1,184 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background: radial-gradient(circle, #0f172a 0%, #020617 100%);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Area Desktop & Ikon */
+.desktop {
+    width: 100%;
+    height: calc(100% - 60px);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.desktop-icon {
+    width: 85px;
+    height: 95px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.desktop-icon:hover {
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    transform: scale(1.05);
+}
+
+.desktop-icon span {
+    font-size: 32px;
+    margin-bottom: 6px;
+}
+
+.desktop-icon p {
+    color: #e2e8f0;
+    font-size: 12px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+    font-weight: 500;
+}
+
+/* Taskbar Melayang Khas Windows 12 */
+.taskbar {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 55px;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 30px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+}
+
+.taskbar-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.taskbar-icon:hover {
+    transform: scale(1.2) translateY(-4px);
+}
+
+/* Start Menu Pop-up */
+.start-menu {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120%);
+    width: 420px;
+    height: 480px;
+    background: rgba(11, 15, 25, 0.96);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 24px;
+    padding: 30px;
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    z-index: 999;
+    color: white;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.7);
+}
+
+.start-menu.active {
+    transform: translateX(-50%) translateY(0);
+}
+
+.start-title {
+    color: #10b981;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+    padding-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+/* Jendela Windows / Window Management */
+.window {
+    position: absolute;
+    top: 15%;
+    left: 25%;
+    width: 580px;
+    height: 400px;
+    background: #090d16;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.window-header {
+    background: #0f172a;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+    cursor: move;
+}
+
+.window-title {
+    color: #10b981;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.control-btn {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.btn-close { background: #ef4444; }
+.btn-min { background: #f59e0b; }
+
+.window-body {
+    padding: 22px;
+    color: #e2e8f0;
+    flex-grow: 1;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.6;
+}
