@@ -4,184 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Win12 - GarudaXyber OS Edition</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            user-select: none;
-        }
-
-        body {
-            height: 100vh;
-            width: 100vw;
-            /* Wallpaper Gelap Khas GarudaXyber */
-            background: radial-gradient(circle, #0f172a 0%, #020617 100%);
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Desktop Area & Icons */
-        .desktop {
-            width: 100%;
-            height: calc(100% - 50px);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-content: flex-start;
-            flex-wrap: wrap;
-        }
-
-        .desktop-icon {
-            width: 80px;
-            height: 90px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .desktop-icon:hover {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .desktop-icon span {
-            font-size: 30px;
-            margin-bottom: 5px;
-        }
-
-        .desktop-icon p {
-            color: #e2e8f0;
-            font-size: 12px;
-            text-align: center;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-        }
-
-        /* Taskbar Windows 12 Style (Melayang di Tengah) */
-        .taskbar {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            height: 50px;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 30px;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            z-index: 9999;
-        }
-
-        .taskbar-icon {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .taskbar-icon:hover {
-            transform: scale(1.15);
-        }
-
-        /* Start Menu Pop-up */
-        .start-menu {
-            position: absolute;
-            bottom: 70px;
-            left: 50%;
-            transform: translateX(-50%) translateY(120%);
-            width: 400px;
-            height: 450px;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 20px;
-            padding: 25px;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-            z-index: 999;
-            color: white;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-        }
-
-        .start-menu.active {
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .start-title {
-            color: #10b981;
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
-            padding-bottom: 5px;
-        }
-
-        /* Sistem Jendela Aplikasi Windows */
-        .window {
-            position: absolute;
-            top: 15%;
-            left: 25%;
-            width: 550px;
-            height: 380px;
-            background: #0b0f19;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 12px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            z-index: 10;
-        }
-
-        .window-header {
-            background: #0f172a;
-            padding: 10px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
-            cursor: move;
-        }
-
-        .window-title {
-            color: #10b981;
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .window-controls div {
-            width: 14px;
-            height: 14px;
-            background: #ef4444;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .window-body {
-            padding: 20px;
-            color: #e2e8f0;
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Desktop Workspace -->
     <div class="desktop">
         <div class="desktop-icon" onclick="openApp('mici')">
             <span>📦</span>
@@ -193,64 +19,55 @@
         </div>
     </div>
 
-    <!-- Jendela Aplikasi 1: MICI Suite -->
     <div id="win-mici" class="window">
         <div class="window-header">
             <span class="window-title">GarudaXyber - MICI Package Control</span>
-            <div class="window-controls"><div onclick="closeApp('mici')"></div></div>
+            <div class="window-controls">
+                <div class="control-btn btn-min"></div>
+                <div class="control-btn btn-close" onclick="closeApp('mici')"></div>
+            </div>
         </div>
         <div class="window-body">
-            <h3>Welcome to MICI Engine v1.0</h3>
-            <p style="margin-top: 10px; color: #94a3b8;">Status: Ultra-Protected by Win12 Core.</p>
+            <h3 style="color: #10b981;">Welcome to MICI Engine v1.0</h3>
+            <p style="margin-top: 5px; color: #94a3b8;">Status: Ultra-Protected by Win12 Core Security.</p>
             <hr style="border: 0.5px solid rgba(16, 185, 129, 0.2); margin: 15px 0;">
             <p>• GarudaTunnel VPN: <span style="color: #10b981;">Ready 🟢</span></p>
             <p>• XyberShield DNS: <span style="color: #10b981;">Active 🟢</span></p>
+            <p style="margin-top: 15px; font-size: 13px; color: #a0aec0;">*Semua sistem berjalan lancar tanpa melanggar hak cipta.</p>
         </div>
     </div>
 
-    <!-- Jendela Aplikasi 2: XyberTerminal -->
     <div id="win-terminal" class="window">
         <div class="window-header">
             <span class="window-title">XyberTerminal (DOS Legacy Mode)</span>
-            <div class="window-controls"><div onclick="closeApp('terminal')"></div></div>
+            <div class="window-controls">
+                <div class="control-btn btn-min"></div>
+                <div class="control-btn btn-close" onclick="closeApp('terminal')"></div>
+            </div>
         </div>
         <div class="window-body" style="background: black; font-family: monospace; color: #10b981;">
             <p>Microsoft Windows 12 [Version 12.0.2026]</p>
             <p>(c) GarudaXyber Corporation. Legend never dies.</p>
             <br>
-            <p>C:\Users\Jenderal_Zafran> _</p>
+            <p>C:\Users\Guest> init garudatunnel</p>
+            <p style="color: #cbd5e0;">[!] Terowongan lokal port 8080 berhasil diamankan...</p>
+            <br>
+            <p>C:\Users\Jenderal_Zafran> <span style="animation: blink 1s infinite;">_</span></p>
         </div>
     </div>
 
-    <!-- Start Menu -->
     <div id="startMenu" class="start-menu">
         <div class="start-title">GARUDA XYBER ECOSYSTEM</div>
-        <p style="color: #94a3b8; font-size: 14px;">Logged in as: <b>Jenderal Zafran</b></p>
+        <p style="color: #e2e8f0; font-size: 14px; margin-bottom: 10px;">User: <b>Jenderal Zafran</b></p>
+        <p style="color: #94a3b8; font-size: 12px;">Sistem terowongan mandiri aktif. Menjaga ketenangan bersamamu.</p>
     </div>
 
-    <!-- Taskbar Windows 12 Melayang -->
     <div class="taskbar">
-        <!-- Logo Start Menu (Garuda) -->
         <div class="taskbar-icon" onclick="toggleStart()">🦅</div>
         <div class="taskbar-icon" onclick="openApp('mici')">📦</div>
         <div class="taskbar-icon" onclick="openApp('terminal')">📟</div>
     </div>
 
-    <script>
-        // Logika Buka Tutup Start Menu
-        function toggleStart() {
-            document.getElementById('startMenu').classList.toggle('active');
-        }
-
-        // Logika Aplikasi Windows 12
-        function openApp(id) {
-            document.getElementById('win-' + id).style.display = 'flex';
-            document.getElementById('startMenu').classList.remove('active'); // Tutup start menu otomatis
-        }
-
-        function closeApp(id) {
-            document.getElementById('win-' + id).style.display = 'none';
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
