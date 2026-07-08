@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Win12 - ProUGarudaOS Edition</title>
+    <title>Win12 - GarudaXyber OS Edition</title>
     <style>
         * {
             margin: 0;
@@ -21,7 +21,7 @@
             position: relative;
         }
 
-        /* Area Desktop & Ikon */
+        /* Area Desktop Workspace */
         .desktop {
             width: 100%;
             height: calc(100% - 70px);
@@ -65,14 +65,14 @@
             font-weight: 500;
         }
 
-        /* Taskbar Melayang Khas Windows 12 (Dipastikan Muncul) */
+        /* Taskbar Windows 12 Melayang */
         .taskbar {
             position: absolute;
             bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
             height: 55px;
-            background: rgba(15, 23, 42, 0.85); /* Dibuat lebih tebal agar kelihatan jelas */
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             border-radius: 30px;
@@ -101,7 +101,7 @@
             transform: scale(1.2) translateY(-4px);
         }
 
-        /* Start Menu Pop-up */
+        /* Start Menu Panel */
         .start-menu {
             position: absolute;
             bottom: 80px;
@@ -134,7 +134,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* Jendela Windows / Window Management */
+        /* Sistem Jendela Aplikasi */
         .window {
             position: absolute;
             top: 15%;
@@ -190,11 +190,45 @@
             font-size: 14px;
             line-height: 1.6;
         }
+
+        /* Gaya Khusus Terminal Interaktif (Bisa Diketik) */
+        .terminal-content {
+            background: black;
+            font-family: monospace;
+            color: #10b981;
+            height: 100%;
+            overflow-y: auto;
+            user-select: text;
+        }
+
+        .terminal-log {
+            white-space: pre-wrap;
+            margin-bottom: 5px;
+        }
+
+        .terminal-input-line {
+            display: flex;
+            align-items: center;
+        }
+
+        .terminal-prompt {
+            color: #10b981;
+            margin-right: 5px;
+        }
+
+        .terminal-input {
+            background: transparent;
+            border: none;
+            color: #cbd5e0;
+            font-family: monospace;
+            font-size: 14px;
+            flex-grow: 1;
+            outline: none;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Desktop Workspace -->
     <div class="desktop">
         <div class="desktop-icon" onclick="openApp('mici')">
             <span>📦</span>
@@ -206,7 +240,6 @@
         </div>
     </div>
 
-    <!-- Jendela 1: MICI Suite -->
     <div id="win-mici" class="window">
         <div class="window-header">
             <span class="window-title">GarudaXyber - MICI Package Control</span>
@@ -224,41 +257,41 @@
         </div>
     </div>
 
-    <!-- Jendela 2: XyberTerminal -->
     <div id="win-terminal" class="window">
         <div class="window-header">
-            <span class="window-title">Xyshell32 (DOS Legacy Mode)</span>
+            <span class="window-title">XyberTerminal (DOS Legacy Mode)</span>
             <div class="window-controls">
                 <div class="control-btn btn-min"></div>
                 <div class="control-btn btn-close" onclick="closeApp('terminal')"></div>
             </div>
         </div>
-        <div class="window-body" style="background: black; font-family: monospace; color: #10b981;">
-            <p>Microsoft Windows 12 [Version 12.0.2026]</p>
-            <p>(c) GarudaXyber Corporation. All Rights Reserved.</p>
-            <br>
-            <p>C:\Users\Jenderal_Zafran> init garudatunnel</p>
-            <p style="color: #cbd5e0;">[!] Terowongan lokal port 8080 berhasil diamankan...</p>
-            <br>
-            <p>C:\Users\Jenderal_Zafran> _</p>
+        <div class="window-body" style="background: black; padding: 10px;">
+            <div class="terminal-content" onclick="focusTerminal()">
+                <div id="terminalLog" class="terminal-log">Microsoft Windows 12 [Version 12.0.2026]
+(c) GarudaXyber Corporation. Legend never dies.
+
+Type 'help' to see available commands.
+</div>
+                <div class="terminal-input-line">
+                    <span class="terminal-prompt">C:\Users\GarudaXyber&gt;</span>
+                    <input type="text" id="terminalInput" class="terminal-input" autofocus autocomplete="off" spellcheck="false">
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Start Menu -->
     <div id="startMenu" class="start-menu">
         <div class="start-title">GARUDA XYBER ECOSYSTEM</div>
-        <p style="color: #e2e8f0; font-size: 14px; margin-bottom: 10px;">User: <b>Jenderal Zafran</b></p>
+        <p style="color: #e2e8f0; font-size: 14px; margin-bottom: 10px;">User: <b>GarudaXyber Member</b></p>
         <p style="color: #94a3b8; font-size: 12px;">Sistem terowongan mandiri aktif. Menjaga ketenangan bersamamu.</p>
     </div>
 
-    <!-- Taskbar Windows 12 (Melayang kokoh di paling depan) -->
     <div class="taskbar">
         <div class="taskbar-icon" onclick="toggleStart()">🦅</div>
         <div class="taskbar-icon" onclick="openApp('mici')">📦</div>
         <div class="taskbar-icon" onclick="openApp('terminal')">📟</div>
     </div>
 
-    <!-- Script Logika Penggerak (Dipastikan Berfungsi & Bebas Typo) -->
     <script>
         function toggleStart() {
             const startMenu = document.getElementById('startMenu');
@@ -270,6 +303,9 @@
             win.style.display = 'flex';
             makeActive(win);
             document.getElementById('startMenu').classList.remove('active');
+            if(id === 'terminal') {
+                setTimeout(focusTerminal, 100);
+            }
         }
 
         function closeApp(id) {
@@ -281,11 +317,57 @@
             windowElem.style.zIndex = '100';
         }
 
+        function focusTerminal() {
+            document.getElementById('terminalInput').focus();
+        }
+
+        // Logika Menangkap Ketikan Di Terminal
+        const cmdInput = document.getElementById('terminalInput');
+        const cmdLog = document.getElementById('terminalLog');
+
+        cmdInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = cmdInput.value.trim();
+                let response = '';
+
+                if (command !== '') {
+                    // Cek perintah yang diketik
+                    switch(command.toLowerCase()) {
+                        case 'help':
+                            response = 'Available commands:\n  help     - Show this help message\n  init     - Initialize GarudaTunnel\n  status   - Check MICI Engine Status\n  clear    - Clear terminal screen';
+                            break;
+                        case 'init':
+                            response = '[!] Initializing GarudaTunnel...\n[🟢] Secure Local Port 8080 Established successfully.';
+                            break;
+                        case 'status':
+                            response = 'MICI Engine Status: PROTECTED\nVPN: Ready\nDNS: Active';
+                            break;
+                        case 'clear':
+                            cmdLog.innerText = '';
+                            cmdInput.value = '';
+                            return;
+                        default:
+                            response = `'${command}' is not recognized as an internal or external command.`;
+                    }
+
+                    // Tampilkan apa yang diketik dan responnya
+                    cmdLog.innerText += `\nC:\\Users\\GarudaXyber> ${command}\n${response}\n`;
+                    cmdInput.value = '';
+                    
+                    // Auto scroll ke bawah
+                    const body = cmdLog.parentElement;
+                    body.scrollTop = body.scrollHeight;
+                }
+            }
+        });
+
+        // Fitur Drag Jendela
         document.querySelectorAll('.window').forEach(win => {
             const header = win.querySelector('.window-header');
             win.addEventListener('mousedown', () => makeActive(win));
 
             header.onmousedown = function(e) {
+                if (e.target.tagName === 'INPUT' || e.target.classList.contains('control-btn')) return;
                 e.preventDefault();
                 let pos1 = 0, pos2 = 0, pos3 = e.clientX, pos4 = e.clientY;
                 
