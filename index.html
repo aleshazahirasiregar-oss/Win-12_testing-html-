@@ -3,11 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Win12 - GarudaXyber OS Edition</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Win12 - ProUGarudaOS Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            background: radial-gradient(circle, #0f172a 0%, #020617 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Area Desktop & Ikon */
+        .desktop {
+            width: 100%;
+            height: calc(100% - 70px);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .desktop-icon {
+            width: 85px;
+            height: 95px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .desktop-icon:hover {
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            transform: scale(1.05);
+        }
+
+        .desktop-icon span {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+
+        .desktop-icon p {
+            color: #e2e8f0;
+            font-size: 12px;
+            text-align: center;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+            font-weight: 500;
+        }
+
+        /* Taskbar Melayang Khas Windows 12 (Dipastikan Muncul) */
+        .taskbar {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 55px;
+            background: rgba(15, 23, 42, 0.85); /* Dibuat lebih tebal agar kelihatan jelas */
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 30px;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            padding: 0 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+        }
+
+        .taskbar-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .taskbar-icon:hover {
+            transform: scale(1.2) translateY(-4px);
+        }
+
+        /* Start Menu Pop-up */
+        .start-menu {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(130%);
+            width: 420px;
+            height: 480px;
+            background: rgba(11, 15, 25, 0.96);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 24px;
+            padding: 30px;
+            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            z-index: 999;
+            color: white;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.7);
+        }
+
+        .start-menu.active {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .start-title {
+            color: #10b981;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+            padding-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Jendela Windows / Window Management */
+        .window {
+            position: absolute;
+            top: 15%;
+            left: 25%;
+            width: 580px;
+            height: 400px;
+            background: #090d16;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .window-header {
+            background: #0f172a;
+            padding: 12px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+            cursor: move;
+        }
+
+        .window-title {
+            color: #10b981;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-btn {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .btn-close { background: #ef4444; }
+        .btn-min { background: #f59e0b; }
+
+        .window-body {
+            padding: 22px;
+            color: #e2e8f0;
+            flex-grow: 1;
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Desktop Workspace -->
     <div class="desktop">
         <div class="desktop-icon" onclick="openApp('mici')">
             <span>📦</span>
@@ -19,6 +206,7 @@
         </div>
     </div>
 
+    <!-- Jendela 1: MICI Suite -->
     <div id="win-mici" class="window">
         <div class="window-header">
             <span class="window-title">GarudaXyber - MICI Package Control</span>
@@ -33,13 +221,13 @@
             <hr style="border: 0.5px solid rgba(16, 185, 129, 0.2); margin: 15px 0;">
             <p>• GarudaTunnel VPN: <span style="color: #10b981;">Ready 🟢</span></p>
             <p>• XyberShield DNS: <span style="color: #10b981;">Active 🟢</span></p>
-            <p style="margin-top: 15px; font-size: 13px; color: #a0aec0;">*Semua sistem berjalan lancar tanpa melanggar hak cipta.</p>
         </div>
     </div>
 
+    <!-- Jendela 2: XyberTerminal -->
     <div id="win-terminal" class="window">
         <div class="window-header">
-            <span class="window-title">XyberTerminal (DOS Legacy Mode)</span>
+            <span class="window-title">Xyshell32 (DOS Legacy Mode)</span>
             <div class="window-controls">
                 <div class="control-btn btn-min"></div>
                 <div class="control-btn btn-close" onclick="closeApp('terminal')"></div>
@@ -47,27 +235,76 @@
         </div>
         <div class="window-body" style="background: black; font-family: monospace; color: #10b981;">
             <p>Microsoft Windows 12 [Version 12.0.2026]</p>
-            <p>(c) GarudaXyber Corporation. Legend never dies.</p>
+            <p>(c) GarudaXyber Corporation. All Rights Reserved.</p>
             <br>
-            <p>C:\Users\Guest> init garudatunnel</p>
+            <p>C:\Users\Jenderal_Zafran> init garudatunnel</p>
             <p style="color: #cbd5e0;">[!] Terowongan lokal port 8080 berhasil diamankan...</p>
             <br>
-            <p>C:\Users\Jenderal_Zafran> <span style="animation: blink 1s infinite;">_</span></p>
+            <p>C:\Users\Jenderal_Zafran> _</p>
         </div>
     </div>
 
+    <!-- Start Menu -->
     <div id="startMenu" class="start-menu">
         <div class="start-title">GARUDA XYBER ECOSYSTEM</div>
         <p style="color: #e2e8f0; font-size: 14px; margin-bottom: 10px;">User: <b>Jenderal Zafran</b></p>
         <p style="color: #94a3b8; font-size: 12px;">Sistem terowongan mandiri aktif. Menjaga ketenangan bersamamu.</p>
     </div>
 
+    <!-- Taskbar Windows 12 (Melayang kokoh di paling depan) -->
     <div class="taskbar">
         <div class="taskbar-icon" onclick="toggleStart()">🦅</div>
         <div class="taskbar-icon" onclick="openApp('mici')">📦</div>
         <div class="taskbar-icon" onclick="openApp('terminal')">📟</div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Script Logika Penggerak (Dipastikan Berfungsi & Bebas Typo) -->
+    <script>
+        function toggleStart() {
+            const startMenu = document.getElementById('startMenu');
+            startMenu.classList.toggle('active');
+        }
+
+        function openApp(id) {
+            const win = document.getElementById('win-' + id);
+            win.style.display = 'flex';
+            makeActive(win);
+            document.getElementById('startMenu').classList.remove('active');
+        }
+
+        function closeApp(id) {
+            document.getElementById('win-' + id).style.display = 'none';
+        }
+
+        function makeActive(windowElem) {
+            document.querySelectorAll('.window').forEach(w => w.style.zIndex = '10');
+            windowElem.style.zIndex = '100';
+        }
+
+        document.querySelectorAll('.window').forEach(win => {
+            const header = win.querySelector('.window-header');
+            win.addEventListener('mousedown', () => makeActive(win));
+
+            header.onmousedown = function(e) {
+                e.preventDefault();
+                let pos1 = 0, pos2 = 0, pos3 = e.clientX, pos4 = e.clientY;
+                
+                document.onmousemove = function(e) {
+                    e.preventDefault();
+                    pos1 = pos3 - e.clientX;
+                    pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    win.style.top = (win.offsetTop - pos2) + "px";
+                    win.style.left = (win.offsetLeft - pos1) + "px";
+                }
+                
+                document.onmouseup = function() {
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+                }
+            }
+        });
+    </script>
 </body>
 </html>
